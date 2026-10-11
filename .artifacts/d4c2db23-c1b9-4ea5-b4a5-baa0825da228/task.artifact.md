@@ -1,2 +1,2 @@
-- [ ] Make `OrderItem` and `Payment` static nested classes in `Order.java`
-- [ ] Run build to verify compilation success
+- [x] Make `OrderItem` and `Payment` static nested classes in `Order.java`
+- [x] Run build to verify compilation success

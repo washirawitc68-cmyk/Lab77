@@ -17,4 +17,9 @@ public class NoteController {
             eventListener.onNoteSaved(textNote1);
         }
     }
+
+
+    public interface NoteEventListener {
+        void onNoteSaved(Note note);
+    }
 }

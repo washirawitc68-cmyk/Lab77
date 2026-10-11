@@ -33,4 +33,9 @@ public class TextNote extends Note {
         String ownerName = (getOwner() != null) ? getOwner().getName() : "Unknown";
         System.out.println("Note by " + ownerName + ": " + getTitle() + " | " + content + " (" + getCreateDate() + ")");
     }
+
+    @Override
+    public String display() {
+        return "Title: " + getTitle() + "\nContent: " + content + "\nDate: " + getCreateDate();
+    }
 }

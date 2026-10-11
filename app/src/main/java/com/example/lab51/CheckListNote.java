@@ -31,4 +31,9 @@ public class CheckListNote extends Note {
         String ownerName = (getOwner() != null) ? getOwner().getName() : "Unknown";
         System.out.println("CheckList by " + ownerName + ": " + getTitle() + " | รายการ: " + checklistItems + " (สร้างเมื่อ: " + getCreateDate() + ")");
     }
+
+    @Override
+    public String display() {
+        return "Title: " + getTitle() + "\nChecklist: " + checklistItems + "\nDate: " + getCreateDate();
+    }
 }

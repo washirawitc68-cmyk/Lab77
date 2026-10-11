@@ -37,4 +37,62 @@ public class Order {
         }
         return total;
     }
+
+
+    public static class OrderItem {
+        private String productId;
+        private int quantity;
+        private float price;
+
+        public OrderItem() {}
+
+        public OrderItem(String productId, int quantity, float price) {
+            this.productId = productId;
+            this.quantity = quantity;
+            this.price = price;
+        }
+
+        public String getProductId() { return productId; }
+        public void setProductId(String productId) { this.productId = productId; }
+
+        public int getQuantity() { return quantity; }
+        public void setQuantity(int quantity) { this.quantity = quantity; }
+
+        public float getPrice() { return price; }
+        public void setPrice(float price) { this.price = price; }
+    }
+
+
+    public static class Payment {
+        public enum Status {
+            PENDING, SUCCESS, FAILED
+        }
+
+        private String id;
+        private float amount;
+        private Status status;
+
+        public Payment() {}
+
+        public Payment(String id, float amount, Status status) {
+            this.id = id;
+            this.amount = amount;
+            this.status = status;
+        }
+
+        public String getId() { return id; }
+        public void setId(String id) { this.id = id; }
+
+        public float getAmount() { return amount; }
+        public void setAmount(float amount) { this.amount = amount; }
+
+        public Status getStatus() { return status; }
+        public void setStatus(Status status) { this.status = status; }
+
+        // จำลองกระบวนการชำระเงิน
+        public void process() {
+            System.out.println("กำลังดำเนินการชำระเงินจำนวน: " + amount);
+            this.status = Status.SUCCESS;
+        }
+    }
 }

@@ -43,4 +43,6 @@ public abstract class Note {
     }
 
     public abstract void getSummary();
+
+    public abstract String display();
 }

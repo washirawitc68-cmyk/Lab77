@@ -1,6 +1,7 @@
 package com.example.lab51;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Date;
+import java.util.concurrent.Executors;
 
-public class AddNoteActivity extends AppCompatActivity implements NoteEventListener {
+public class AddNoteActivity extends AppCompatActivity implements NoteController.NoteEventListener {
     EditText titleEdit, contentEdit, userEdit;
     Button saveBtn, backBtn;
     TextView showNote;
@@ -70,5 +72,23 @@ public class AddNoteActivity extends AppCompatActivity implements NoteEventListe
             String ownerName = (textNote.getOwner() != null) ? textNote.getOwner().getName() : "Unknown";
             showNote.setText("Title: " + textNote.getTitle() + "\nOwner: " + ownerName + "\nContent: " + textNote.getContent());
         }
+
+        // OOP -> entity
+        NoteEntity entity = NoteMapper.toEntity(note);
+
+        // add data to db
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // 1. บันทึกข้อมูลลง Database
+                AppDatabase.getInstance(this).noteDao().insert(entity);
+
+                // 2. แสดง Log เมื่อบันทึกสำเร็จ
+                Log.d("DatabaseAction", "Insert successful: Note saved to database.");
+
+            } catch (Exception e) {
+                // กรณีเกิด Error ระหว่างบันทึก
+                Log.e("DatabaseAction", "Error inserting note: " + e.getMessage());
+            }
+        });
     }
 }

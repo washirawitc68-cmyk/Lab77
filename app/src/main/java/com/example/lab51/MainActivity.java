@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mButton,Addbutton;
+    Button mButton, Addbutton, Browsebutton;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,39 +28,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        VipUser vipUser = new VipUser("U123", "UID-789", "John Doe", "password123", "Gold Member");
-        vipUser.setName("John Smith");
-
-        System.out.println("User Name: " + vipUser.getName());
-        System.out.println("Account Type: " + vipUser.getVipStatus());
-
-        if (vipUser.authenticate()) {
-            System.out.println("Login Success for: " + vipUser.getName());
-            System.out.println("Password: " + vipUser.getPassword());
-        } else {
-            System.out.println("Login Failed");
-        }
-
-        java.util.List<Note> notes = new java.util.ArrayList<>();
-
-        notes.add(new TextNote("Lab 3 Task", "2026-07-24", "Complete OOP refactoring"));
-
-        java.util.List<String> items = new java.util.ArrayList<>();
-        items.add("Inheritance");
-        items.add("Encapsulation");
-        items.add("Polymorphism");
-        notes.add(new CheckListNote("OOP Principles", "2026-07-24", items));
-
-        System.out.println("\n--- My Notes ---");
-        for (Note note : notes) {
-            note.getSummary();
-        }
+        progressBar = findViewById(R.id.progressBar);
 
         mButton = findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Navigating to AboutMeActivity");
                 Intent aboutMeActivity = new Intent(getApplicationContext(), AboutMeActivity.class);
                 startActivity(aboutMeActivity);
             }
@@ -68,9 +43,39 @@ public class MainActivity extends AppCompatActivity {
         Addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Navigating to AddNoteActivity");
                 Intent addNote = new Intent(getApplicationContext(), AddNoteActivity.class);
                 startActivity(addNote);
+            }
+        });
+
+        Browsebutton = findViewById(R.id.buttonBrowse);
+        Browsebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Multitasking (Thread) - Requirement 2
+                progressBar.setVisibility(View.VISIBLE);
+                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            // Simulate loading data (2 seconds)
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Update UI on main thread
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                Intent browseIntent = new Intent(MainActivity.this, BrowseNoteActivity.class);
+                                startActivity(browseIntent);
+                            }
+                        });
+                    }
+                }).start();
             }
         });
     }

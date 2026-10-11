@@ -41,4 +41,62 @@ public class User {
         System.out.println("Authenticating: " + name);
         return true;
     }
+
+    public class VipUser extends User {
+        private String vipStatus;
+
+        public VipUser() {
+            super();
+        }
+
+        public VipUser(String userId, String id, String name, String password, String vipStatus) {
+            super(userId, id, name, password);
+            this.vipStatus = vipStatus;
+        }
+
+        public String getVipStatus() {
+            return vipStatus;
+        }
+
+        public void setVipStatus(String vipStatus) {
+            this.vipStatus = vipStatus;
+        }
+
+        @Override
+        public boolean authenticate() {
+            System.out.println("Authenticating VIP User: " + getName());
+            return super.authenticate();
+        }
+    }
+
+
+    public class Address {
+        private String street;
+        private String city;
+        private String zipCode;
+
+        public Address() {}
+
+        public Address(String street, String city, String zipCode) {
+            this.street = street;
+            this.city = city;
+            this.zipCode = zipCode;
+        }
+
+        public String getStreet() { return street; }
+        public void setStreet(String street) { this.street = street; }
+
+        public String getCity() { return city; }
+        public void setCity(String city) { this.city = city; }
+
+        public String getZipCode() { return zipCode; }
+        public void setZipCode(String zipCode) { this.zipCode = zipCode; }
+
+        public boolean isValid() {
+            return street != null && city != null && zipCode != null;
+        }
+    }
+
 }
+
+

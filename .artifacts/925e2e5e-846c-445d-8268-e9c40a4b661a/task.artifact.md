@@ -1,7 +1,7 @@
-- `[ ]` Update `Note.java` to add `display()` abstract method and fix field access.
-- `[ ]` Implement `display()` in `TextNote.java`.
-- `[ ]` Implement `display()` in `CheckListNote.java`.
-- `[ ]` Fix `NoteMapper.java` (use getters, fix field names, handle Date).
-- `[ ]` Integrate saving logic into `AddNoteActivity.java`.
-- `[ ]` Integrate loading logic into `BrowseNoteActivity.java`.
-- `[ ]` Verify build and functionality.
+- `[x]` Update `Note.java` to add `display()` abstract method and fix field access.
+- `[x]` Implement `display()` in `TextNote.java`.
+- `[x]` Implement `display()` in `CheckListNote.java`.
+- `[x]` Fix `NoteMapper.java` (use getters, fix field names, handle Date).
+- `[x]` Integrate saving logic into `AddNoteActivity.java`.
+- `[x]` Integrate loading logic into `BrowseNoteActivity.java`.
+- `[x]` Verify build and functionality.
